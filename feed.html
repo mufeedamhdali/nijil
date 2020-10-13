@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Feed</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        form.example input[type=text] {
+            padding: 10px;
+            font-size: 17px;
+            border: 1px solid whitesmoke;
+            float: left;
+            width: 80%;
+            background: #f1f1f1;
+        }
+
+        form.example button {
+            float: left;
+            width: 20%;
+            padding: 10px;
+            background: #3a3a3b;
+            color: white;
+            font-size: 17px;
+            border: 1px solid grey;
+            border-left: none;
+            cursor: pointer;
+        }
+
+        form.example button:hover {
+            background: #0b7dda;
+        }
+
+        form.example::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        p {
+            font: 22px calibri;
+            text-align: center;
+        }
+
+        table {
+            border: 0;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0px 10px 0px;
+            border-collapse: inherit;
+            border: 1px solid black;
+            text-align: left;
+
+        }
+
+        tr,
+        td {
+            margin: 3px;
+            border-collapse: collapse;
+            text-align: center;
+            margin: 3px;
+            position: static;
+            font-size: 30px;
+            padding: 2px;
+        }
+    </style>
+</head>
+
+<body onload="JSONParsing()" style="text-align:center;">
+
+    <div style="margin:auto; width:30%;text-align:left;">
+        <div>
+            <form class="example" action="action_page.php">
+                <table class="feed" style="border: 0;">
+                    <tr>
+                        <td style="text-align:left;font-size: 20px;">
+                            <input type="text" placeholder="Search.." name="search">
+                            <button type="button" onclick="searchUser()"><i class="fa fa-search"></i></button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <div id="layout" style="margin:auto; width:25%;text-align:center;"></div>
+
+</body>
+
+<script>
+
+    var profiles = [
+        {
+            "_id": "5e608a2c3f0a448eeb52ab9e",
+            "firstname": "Lesa",
+            "lastname": "Hutchinson",
+            "dob": "11/10/14",
+            "email": "lesa@gmail.com",
+            "phone": "123456789"
+        },
+        {
+            "_id": "5e608a2c4ee75b514af3db14",
+            "firstname": "Autumn",
+            "lastname": "Sargent",
+            "dob": "11/10/14",
+            "email": "Autumn@gmail.com",
+            "phone": "123456789"
+        },
+        {
+            "_id": "5e608a2cd6cff7307236d69b",
+            "firstname": "Kelli",
+            "lastname": "Davidson",
+            "dob": "11/10/14",
+            "email": "Kelli@gmail.com",
+            "phone": "123456789"
+        },
+        {
+            "_id": "5e608a2c980796c125686e32",
+            "firstname": "Castaneda",
+            "lastname": "Duran",
+            "dob": "11/10/14",
+            "email": "Castaneda@gmail.com",
+            "phone": "123456789"
+        },
+        {
+            "_id": "5e608a2caecf92488b7f01b2",
+            "firstname": "Kaitlin",
+            "lastname": "Casey",
+            "dob": "11/10/14",
+            "email": "Kaitlin@gmail.com",
+            "phone": "123456789"
+        },
+        {
+            "_id": "5e608a2c1bbd4ab0a7fe5630",
+            "firstname": "Moore",
+            "lastname": "Shepard",
+            "dob": "11/10/14",
+            "email": "Moore@gmail.com",
+            "phone": "123456789"
+        },
+        {
+            "_id": "5e608a2c11e104bdd5c41723",
+            "firstname": "Zamora",
+            "lastname": "Peterson",
+            "dob": "11/10/14",
+            "email": "Zamora@gmail.com",
+            "phone": "123456789"
+        }
+    ]
+
+    function JSONParsing() {
+
+        
+
+        // Create list of user profile using JSON data
+        for (var i = 0; i < Object.keys(profiles).length; i++) {
+
+            viewUser(i)
+            
+        }
+    
+    }
+
+    function viewUser(i){
+        var container = document.createElement("div");
+            container.className = "list-group";
+
+            // Whole profile link
+            var listCard = document.createElement("a");
+            listCard.className = "list-group-item";
+            listCard.style = "border-radius: 10px;";
+
+            var rowDivision = document.createElement("div");
+            rowDivision.className = "row";
+
+            // Name section of the profile row
+            var tab2 = document.createElement("div");
+            tab2.className = "col-sm-10";
+            var textName = document.createElement('p');
+            textName.className = "list-group-item-text";
+            textName.innerText = profiles[i]["firstname"] + " " + profiles[i]["lastname"];
+            tab2.appendChild(textName);
+            rowDivision.appendChild(tab2);
+
+            // Navigation section of the profile row
+            var tab3 = document.createElement("div");
+            tab3.className = "col-sm-2";
+            var textArrow = document.createElement('span');
+            textArrow.className = "glyphicon glyphicon-chevron-right";
+            tab3.appendChild(textArrow);
+            rowDivision.appendChild(tab3);
+
+            listCard.appendChild(rowDivision);
+
+            // Append profile id vaiable from JSON data to the URL
+            listCard.href = "bio.html?id=" + profiles[i]["_id"];
+
+            container.appendChild(listCard);
+
+            var layoutContainer = document.getElementById("layout");
+            layoutContainer.appendChild(container);
+    }
+
+    function searchUser() {
+
+        var data = "Kelli Davidson";
+        for (var i = 0; i < Object.keys(profiles).length; i++) {
+            
+            if (profiles[i]["firstname"] + " " + profiles[i]["lastname"] == data) {
+                clearUser();
+                viewUser(i)
+        }
+        }
+
+    }
+
+    function clearUser(){
+        for (var i = 0; i < Object.keys(profiles).length; i++) {
+            document.getElementById("div").remove;
+        }
+    }
+
+
+
+</script>
+
+</html>
